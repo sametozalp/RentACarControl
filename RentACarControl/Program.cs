@@ -7,7 +7,7 @@ namespace RentACarControl
     {
         static void Main(string[] args)
         {
-            String query = "SELECT * FROM OGRENCI";
+            string query = "SELECT * FROM BAKIM";
             SqlConnection sqlConnection = new SqlConnection("Data Source=DESKTOP-5HFM0UD;Initial Catalog=DATABASE;Integrated Security=True");
             
             sqlConnection.Open();
@@ -19,20 +19,24 @@ namespace RentACarControl
             DataTable dataTable = new DataTable();
             adapter.Fill(dataTable);
 
-            List<string> list = new List<string>();
-            foreach (DataRow row in dataTable.Rows)
-            {
-                foreach (DataColumn column in dataTable.Columns)
-                {
-                    list.Add($"{column.ColumnName}: {row[column]}");
-                }
-            }
+            DateTime dateTimeNow = DateTime.Now;
 
-            // Listeyi düzgün bir şekilde yazdırma
+            List<User> list = new List<User>();
+            User user;
+            foreach (DataRow row in dataTable.Rows) 
+            {
+                user = new User(Convert.ToInt32(row["id"]), row["mail"].ToString(), Convert.ToDateTime(row["date"]));
+                list.Add(user);
+            }
+            int subDays;
             foreach (var item in list)
             {
-                Console.WriteLine(item);
+                Console.WriteLine("id: " + item.getAd() + " date: " + item.getDate() + " mail: " + item.getMail());
+                subDays = (item.getDate() - dateTimeNow).Days + 1;
+                Console.WriteLine(subDays + " gün fark..");
+
             }
+
 
             sqlConnection.Close();
 
