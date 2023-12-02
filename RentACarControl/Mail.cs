@@ -36,8 +36,8 @@ namespace RentACarControl
             }
         }
 
-        string senderEmail = "rentacar.43@hotmail.com";
-        string senderPassword = "rentacar43";
+        string senderEmail = "*********";
+        string senderPassword = "********";
         string smtpServer = "smtp.office365.com";
         int smtpPort = 587;
         SmtpClient smtpClient;
