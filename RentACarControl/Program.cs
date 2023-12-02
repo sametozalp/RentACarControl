@@ -13,9 +13,12 @@ namespace RentACarControl
 
             string query = "SELECT * FROM BAKIM";
             
-            databaseConnection.getQueryData(query);
+            List<User> recipient = databaseConnection.getQueryUserListData(query);
             
             databaseConnection.close();
+            
+            Mail mail = new Mail();
+            mail.sendMail("BAKIM VAKTİ / RENT A CAR","Aracınızın bakım vakti gelmiştir.", recipient);
         }
     }
 }

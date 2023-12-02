@@ -27,7 +27,7 @@ namespace RentACarControl
             sqlConnection.Open();
         }
 
-        public void getQueryData(string query)
+        public List<User> getQueryUserListData(string query)
         {
             try
             {
@@ -42,29 +42,21 @@ namespace RentACarControl
                 Console.WriteLine(ex.Message);
             }
             
-            DateTime dateTimeNow = DateTime.Now.Date;
-
             User user;
             foreach (DataRow row in dataTable.Rows)
             {
                 user = new User(Convert.ToInt32(row["id"]), row["mail"].ToString(), Convert.ToDateTime(row["date"]));
                 list.Add(user);
             }
-            bool subDays;
 
-            foreach (var item in list)
-            {
-                Console.WriteLine("id: " + item.getAd() + " date: " + item.getDate() + " mail: " + item.getMail());
-                subDays = item.getDate() == dateTimeNow;
-                Console.WriteLine(subDays);
-            }
+            return list;
         }
 
         public void close()
         {
             try
             {
-                sqlConnection.Close()
+                sqlConnection.Close();
             }
             catch (Exception ex) { 
                 Console.WriteLine(ex.Message);
